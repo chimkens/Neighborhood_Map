@@ -35,14 +35,14 @@
 
 </script>
 <div class="container">
-  <h3>Places to Visit in Duluth, GA</h3>
+  <h3>Where I Go Around Atlanta</h3>
 
   <h4>Filter: <span><select data-bind="options: categories, value: selectedCategory"></select></span></h4>
 
 
 
   <ul id = list class="list-group no-bullets" data-bind="foreach: filteredPeople" >
-    <li class="list-group" data-bind="text: name, click: myFunction" id="item"></li>
+    <li class="list-group" data-bind="text: name, click: selectPlace" id="item"></li>
   </ul>
   <div id="map"></div>
 </div>
@@ -60,7 +60,6 @@
 <script type='text/javascript' src='../library/bower_components/knockout/dist/knockout.js'></script>
 <script>
     //listPlaces()
-    listView()
 
 </script>
 

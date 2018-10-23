@@ -5,13 +5,13 @@ var map;
 var markers = [];
 // This global polygon variable is to ensure only ONE polygon is rendered.
 var polygon = null;
-function myFunction(data, event) {
+function selectPlace(data, event) {
     if (event.shiftKey) {
         alert('hello')
     } else {
         //do normal action
         alert(JSON.stringify(data)) //data eg. {"name":"Lady of LÃ³rien","category":"Fictional"}
-        createMarker({title: data.title, location: data.location});
+        //createMarker({title: data.title, location: data.location});
     }
 }
 function createMarker(locations) {
@@ -33,7 +33,7 @@ function createMarker(locations) {
         title: title,
         animation: google.maps.Animation.DROP,
         icon: defaultIcon,
-        id: i
+        id: '1'
     });
     // Push the marker to our array of markers.
     markers.push(marker);
@@ -53,7 +53,7 @@ function createMarker(locations) {
 }
 
 //teakes locations array
-function createMultipleMarkers(locations, i) {
+function createMultipleMarkers(locations, i, map) {
     var largeInfowindow = new google.maps.InfoWindow();
 
 
@@ -72,6 +72,7 @@ function createMultipleMarkers(locations, i) {
         title: title,
         animation: google.maps.Animation.DROP,
         icon: defaultIcon,
+        map: map,
         id: i
     });
     // Push the marker to our array of markers.
@@ -89,6 +90,44 @@ function createMultipleMarkers(locations, i) {
         this.setIcon(defaultIcon);
     });
     return {position: position, title: title, marker: marker};
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(markersArray, map) {
+    for (var i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(map);
+    }
+}
+// Adds a marker to the map and push to the array.
+function addMarker(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+    setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+    setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
 }
 function initMap() {
     // Create a styles array to use with the map.
@@ -161,19 +200,21 @@ function initMap() {
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 34.0029, lng: -84.1446},
-        zoom: 13,
+        zoom: 10,
         styles: styles,
         mapTypeControl: false
     });
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
     var locations = [
-        {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-        {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-        {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-        {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-        {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-        {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+        {title: 'Sweet Hut Bakery and Cafe', location: {lat: 33.961378, lng: -84.136208}},
+        {title: 'JeJu Sauna', location: {lat: 33.9567, lng: -84.1313}},
+        {title: 'Avalon', location: {lat: 34.0704, lng: -84.2765}},
+        {title: 'Lake Lanier Islands Park', location: {lat: 34.1767664, lng: -84.0254638}},
+        {title: 'Stone Summit Climbing and Fitness Gym', location: {lat: 33.884895, lng: -84.267517}},
+        {title: 'Boat Rock Outdoor Bouldering Area', location: {lat: 33.7219, lng: -84.5641}},
+        {title: 'JINYA Ramen Bar', location: {lat: 33.919203, lng: -84.379007}},
+        {title: 'Sharetea', location: {lat: 33.9184, lng: -84.3775}}
     ];
     // Initialize the drawing manager.
     var drawingManager = new google.maps.drawing.DrawingManager({
@@ -187,11 +228,12 @@ function initMap() {
         }
     });
 
+    //show markers and list after map initializes
+    listView();
 
-    // The following group uses the location array to create an array of markers on initialize.
-    for (var i = 0; i < locations.length; i++) {
-        var __ret = createMultipleMarkers(locations, i);
-    }
+
+
+
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideListings);
     document.getElementById('toggle-drawing').addEventListener('click', function() {
@@ -487,17 +529,17 @@ function listPlaces() {
 
 function listView(){
 
+
         // Data from server
-        var people = [
-            { name: "Bill Gates", category: "Tech", title: 'Park Ave Penthouse', location: {lat: 34.0010, lng: -84.1204}},
-            { name: "Steve Jobs", category: "Tech" },
-            { name: "Jeff Bezos", category: "Tech" },
-            { name: "George Clooney", category: "Entertainment" },
-            { name: "Meryl Streep", category: "Entertainment" },
-            { name: "Amy Poehler", category: "Entertainment" },
-            { name: "Lady of Lórien", category: "Fictional" },
-            { name: "BB8", category: "Fictional" },
-            { name: "Michael Scott", category: "Fictional" }
+        var places = [
+            { name: "Sweet Hut Bakery and Cafe", category: "Food", title: 'Sweet Hut Bakery and Cafe', location: {lat: 33.961378, lng: -84.136208}},
+            { name: "Jeju Sauna", category: "Sauna", title: 'Jeju Sauna', location: {lat: 33.9567, lng: -84.1313}},
+            { name: "Avalon", category: "Shopping", title: 'Avalon', location: {lat: 34.0704, lng: -84.2765}},
+            { name: "Lake Lanier Islands Park", category: "Fitness", title: 'Lake Lanier Islands Park', location: {lat: 34.1767664, lng: -84.0254638}},
+            { name: "Stone Summit Climbing and Fitness Gym", category: "Fitness", title: 'Stone Summit Climbing and Fitness Gym', location: {lat: 33.884895, lng: -84.267517}},
+            { name: "Boat Rock Outdoor Bouldering Area", category: "Fitness", title: 'Boat Rock Outdoor Bouldering Area', location: {lat: 33.7219, lng: -84.5641}},
+            { name: "JINYA Ramen Bar", category: "Food", title: 'JINYA Ramen Bar', location: {lat: 33.919203, lng: -84.379007}},
+            { name: "Sharetea", category: "Food", title: 'Sharetea', location: {lat: 33.9184, lng: -84.3775}},
         ];
 
         // View Model
@@ -506,12 +548,12 @@ function listView(){
 
 
             // import starting data
-            self.people = people;
+            self.places = places;
 
             // currently selected category
             //self.selectedCategory = ko.observable("All");
             //availableCountries: ko.observableArray(['France', 'Germany', 'Spain'])
-            self.categories = ko.observableArray(["All", "Tech", "Entertainment", "Fictional"]);
+            self.categories = ko.observableArray(["All", "Food", "Fitness", "Shopping", "Sauna"]);
             self.selectedCategory = ko.observable("All");
 
             // filtered people list
@@ -519,13 +561,40 @@ function listView(){
                 var category = self.selectedCategory();
 
                 if(category === "All") {
-                    return self.people;
-                } else {
-                    var tempList = self.people.slice();
 
-                    return tempList.filter(function(person) {
+                    //first clear all markers if markers array is not empty
+                    if (markers.length >0){
+                        deleteMarkers(markers);
+                        markers = [];
+                    }
+
+                    // The following group uses the location array to create an array of markers on initialize.
+                    for (var i = 0; i < places.length; i++) {
+                        console.log(location[i]);
+                        var __ret = createMultipleMarkers(self.places, i, map);
+                    }
+                    return self.places;
+                } else {
+
+                    //first clear all markers if markers array is not empty
+                    if (markers.length >0){
+                        deleteMarkers(markers);
+                        markers = [];
+                    }
+
+                    var filteredPlaces = self.places.slice(); //clone the places array
+
+                    //Obtain a new array of items that match the category selected
+                    filteredPlaces = filteredPlaces.filter(function(person) {
                         return person.category === category;
                     });
+
+                    //create markers for places that fit the category
+                    for (var i = 0; i < filteredPlaces.length; i++) {
+                        var __ret = createMultipleMarkers(filteredPlaces, i, map);
+                    }
+
+                    return filteredPlaces;
                 }
             });
 
