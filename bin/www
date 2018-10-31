@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../public/javascripts/mapClient');
 var debug = require('debug')('neighborhood-map:server');
 var http = require('http');
 
