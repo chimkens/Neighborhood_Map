@@ -1,20 +1,25 @@
-//anything the Maps API is used for, creating markers, tracking click events on markers, making the map, refreshing the map.
-//var requestify = require('requestify');
 
-var map;
+
+let map;
 // Create a new blank array for all the listing markers.
-var markers = [];
-// This global polygon variable is to ensure only ONE polygon is rendered.
-var polygon = null;
+let markers = [];
 
 // Create a "highlighted location" marker color for when the user
 // mouses over the marker.
-var highlightedIcon = makeMarkerIcon('FFFF24');
+let highlightedIcon = makeMarkerIcon('FFFF24');
 
 // Style the markers a bit. This will be our listing marker icon.
-var defaultIcon = makeMarkerIcon('0091ff');
+let defaultIcon = makeMarkerIcon('0091ff');
 
 
+
+/**
+ * Query FourSquare for specific data on venue
+ * @param marker
+ * @param infowindow
+ * @param callback
+ * @constructor
+ */
 function FourSquareFetch(marker, infowindow, callback) {
 
 
@@ -28,7 +33,7 @@ function FourSquareFetch(marker, infowindow, callback) {
 
 }
 
-
+//marker bounce animation
 function markerBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function () {
@@ -38,9 +43,6 @@ function markerBounce(marker) {
 
 
 function selectPlace(data, event) {
-
-    //do normal action
-    //createMarker({title: data.title, location: data.location});
 
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].getTitle() === data.title) {
@@ -56,7 +58,7 @@ function selectPlace(data, event) {
 }
 
 
-//teakes locations array
+//takes locations array and creates the markers for each
 function createMultipleMarkers(locations, i, map) {
     var largeInfowindow = new google.maps.InfoWindow();
 
@@ -228,9 +230,7 @@ function initMap() {
 
 }
 
-// This function populates the infowindow when the marker is clicked. We'll only allow
-// one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
+// This function populates the infowindow when the marker is clicked.
 function populateInfoWindow(data, marker, infowindow) {
 
     // Check to make sure the infowindow is not already opened on this marker.
