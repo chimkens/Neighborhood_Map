@@ -369,8 +369,6 @@ function listView() {
         self.places = places;
 
         // currently selected category
-        //self.selectedCategory = ko.observable("All");
-        //availableCountries: ko.observableArray(['France', 'Germany', 'Spain'])
         self.categories = ko.observableArray(["All", "Food", "Fitness", "Shopping", "Sauna"]);
         self.selectedCategory = ko.observable("All");
 
