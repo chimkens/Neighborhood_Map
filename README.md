@@ -6,7 +6,7 @@
 
 # Description
 
-- This project shows areas where I like to go around Atlanta, Georgia, USA. Places are displayed on Google maps and additional details such as location name, description, and url are fetched with FourSquare APIs. You can filter by food, fitness, or shopping areas. 
+- This project shows areas where I like to go around Atlanta, Georgia, USA. Places are displayed on Google maps and additional details such as location name and url are fetched with FourSquare APIs. You can filter by food, fitness, or shopping areas. 
 
 # Tools Used in the Project
 - Google Maps API 

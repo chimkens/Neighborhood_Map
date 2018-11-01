@@ -233,6 +233,18 @@ function initMap() {
 // This function populates the infowindow when the marker is clicked.
 function populateInfoWindow(data, marker, infowindow) {
 
+    //use best known name from Foursquare, otherwise use marker title
+    let title = data.hasOwnProperty('response') && data.response.hasOwnProperty('venue') && data.response.venue.hasOwnProperty('name') ? data.response.venue.name : marker.title;
+
+    let url = '';
+    if (data && data.hasOwnProperty('response') && data.response.hasOwnProperty('venue')){
+        url = data.response.venue.hasOwnProperty('url') ? data.response.venue.url : data.response.canonicalUrl;
+    }else{
+        url = 'No URL Was Found on FourSquare'
+    }
+
+
+
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         // Clear the infowindow content to give the streetview time to load.
@@ -249,18 +261,12 @@ function populateInfoWindow(data, marker, infowindow) {
         // position of the streetview image, then calculate the heading, then get a
         // panorama from that and set the options
         function getStreetView(data, status) {
-            //use best known name from Foursquare, otherwise use marker title
-            let title = data.hasOwnProperty('response') && data.response.hasOwnProperty('venue') && data.response.venue.hasOwnProperty('name') ? data.response.venue.name : marker.title;
-
-            let url = data.hasOwnProperty('response') && data.response.hasOwnProperty('venue') && data.response.venue.hasOwnProperty('canonicalUrl') ? data.response.venue.canonicalUrl : 'No Url Found on FourSquare';
-            let description = data.hasOwnProperty('response') && data.response.hasOwnProperty('venue') && data.response.venue.hasOwnProperty('description') ? data.response.venue.canonicalUrl : 'No description found on FourSquare';
-
 
             if (status == google.maps.StreetViewStatus.OK) {
                 var nearStreetViewLocation = data.location.latLng;
                 var heading = google.maps.geometry.spherical.computeHeading(
                     nearStreetViewLocation, marker.position);
-                infowindow.setContent(`<div> ${title} </div> <div id="pano"></div> <div>${url}</div> <div>${description}</div>`);
+                infowindow.setContent(`<div> ${title} </div> <div id="pano"></div> <a href=${url}>venue link</a>`);
                 var panoramaOptions = {
                     position: nearStreetViewLocation,
                     pov: {
