@@ -236,13 +236,10 @@ function populateInfoWindow(data, marker, infowindow) {
     //use best known name from Foursquare, otherwise use marker title
     let title = data.hasOwnProperty('response') && data.response.hasOwnProperty('venue') && data.response.venue.hasOwnProperty('name') ? data.response.venue.name : marker.title;
 
-    let url = '';
+    let url = '#';
     if (data && data.hasOwnProperty('response') && data.response.hasOwnProperty('venue')){
         url = data.response.venue.hasOwnProperty('url') ? data.response.venue.url : data.response.canonicalUrl;
-    }else{
-        url = 'No URL Was Found on FourSquare'
     }
-
 
 
     // Check to make sure the infowindow is not already opened on this marker.
@@ -285,6 +282,9 @@ function populateInfoWindow(data, marker, infowindow) {
         // Use streetview service to get the closest streetview image within
         // 50 meters of the markers position
         streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+        if (url === '#'){
+            alert('No Url found for this venue on FourSquare')
+        }
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
         markerBounce(marker); //animate marker on click

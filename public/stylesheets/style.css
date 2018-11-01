@@ -82,8 +82,6 @@ hr {
   width: 24%;
 }
 
-
-
 #list li:hover {
   cursor: pointer;
   background: linear-gradient(to left, #00B7FF , aquamarine);
