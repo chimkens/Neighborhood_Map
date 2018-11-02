@@ -22,5 +22,6 @@
 # Steps to Run the Project
 
 - Download or clone the project 
+- Run npm install
 - Run the mainPage.html file
 - Enjoy!
