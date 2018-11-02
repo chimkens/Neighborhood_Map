@@ -307,6 +307,10 @@ function makeMarkerIcon(markerColor) {
 }
 
 
+function MapErrorFunction(){
+    alert('Error loading Google Maps');
+}
+
 function listView() {
 
 
