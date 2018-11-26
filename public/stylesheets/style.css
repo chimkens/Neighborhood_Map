@@ -4,6 +4,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow: auto;
 }
 
 a {
@@ -20,6 +21,7 @@ body {
   height: 100%;
   position: relative;
   color: #999999;
+  overflow: auto;
 }
 h1 {
   color: #525454;
@@ -44,11 +46,8 @@ hr {
   border: none;
 }
 #map {
-  bottom:0px;
-  height: 100%;
-  left: 362px;
-  position: absolute;
-  right: 0px;
+  position: relative;
+  overflow: auto;
 }
 .options-box {
   background: #fff;
