@@ -21,14 +21,11 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
-    <script type="text/javascript" src="./public/javascripts/mapClient.js"></script>
-
-
-</head>
+    </head>
 
 
 <body>
@@ -42,6 +39,8 @@
         });
         $(this).addClass('selected');
     });
+
+
 
 </script>
 <div class="container">
@@ -63,8 +62,10 @@
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
 <script type='text/javascript' src='library/bower_components/knockout/dist/knockout.js'></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDImtOf35oSC272r8B6n7gDxx_7GcH7KIs&callback=initMap" onerror="MapErrorFunction()"> </script>
 
+<script type="text/javascript" src="./public/javascripts/mapClient.js"></script>
+
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDECAQGKo6_jJ-0keW6LpUYxTgcjZTkXkE&v=3&callback=initMap" onerror="MapErrorFunction()"></script>
 
 
 </body>

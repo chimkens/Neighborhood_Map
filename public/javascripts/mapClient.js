@@ -1,15 +1,26 @@
-
-
 let map;
 // Create a new blank array for all the listing markers.
 let markers = [];
 
 // Create a "highlighted location" marker color for when the user
 // mouses over the marker.
-let highlightedIcon = makeMarkerIcon('FFFF24');
+//let highlightedIcon = makeMarkerIcon('FFFF24');
+let highlightedIcon;
 
 // Style the markers a bit. This will be our listing marker icon.
-let defaultIcon = makeMarkerIcon('0091ff');
+//let defaultIcon = makeMarkerIcon('0091ff');
+let defaultIcon;
+
+var locations = [
+    {title: 'Sweet Hut Bakery and Cafe', location: {lat: 33.961378, lng: -84.136208}},
+    {title: 'JeJu Sauna', location: {lat: 33.9567, lng: -84.1313}},
+    {title: 'Avalon', location: {lat: 34.0704, lng: -84.2765}},
+    {title: 'Lake Lanier Islands Park', location: {lat: 34.1767664, lng: -84.0254638}},
+    {title: 'Stone Summit Climbing and Fitness Gym', location: {lat: 33.884895, lng: -84.267517}},
+    {title: 'Boat Rock Outdoor Bouldering Area', location: {lat: 33.7219, lng: -84.5641}},
+    {title: 'JINYA Ramen Bar', location: {lat: 33.919203, lng: -84.379007}},
+    {title: 'Sharetea', location: {lat: 33.9184, lng: -84.3775}}
+];
 
 
 
@@ -48,9 +59,13 @@ function selectPlace(data, event) {
         if (markers[i].getTitle() === data.title) {
             var largeInfowindow = new google.maps.InfoWindow();
 
+            highlightedIcon = makeMarkerIcon('FFFF24');
+
             markers[i].setIcon(highlightedIcon);
             FourSquareFetch(markers[i], largeInfowindow, populateInfoWindow);
             //populateInfoWindow(markers[i], largeInfowindow);
+            makeMarkerIcon('0091ff');
+            defaultIcon = makeMarkerIcon('0091ff');
             markers[i].setIcon(defaultIcon);
         }
     }
@@ -65,10 +80,10 @@ function createMultipleMarkers(locations, i, map) {
 
     // Create a "highlighted location" marker color for when the user
     // mouses over the marker.
-    var highlightedIcon = makeMarkerIcon('FFFF24');
+    highlightedIcon = makeMarkerIcon('FFFF24');
 
     // Style the markers a bit. This will be our listing marker icon.
-    var defaultIcon = makeMarkerIcon('0091ff');
+    defaultIcon = makeMarkerIcon('0091ff');
 // Get the position from the location array.
     var position = locations[i].location;
     var title = locations[i].title;
@@ -92,9 +107,11 @@ function createMultipleMarkers(locations, i, map) {
     // Two event listeners - one for mouseover, one for mouseout,
     // to change the colors back and forth.
     marker.addListener('mouseover', function () {
+        highlightedIcon = makeMarkerIcon('FFFF24');
         this.setIcon(highlightedIcon);
     });
     marker.addListener('mouseout', function () {
+        defaultIcon = makeMarkerIcon('0091ff')
         this.setIcon(defaultIcon);
     });
     return {position: position, title: title, marker: marker};
@@ -212,6 +229,7 @@ function initMap() {
     });
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
+    /*
     var locations = [
         {title: 'Sweet Hut Bakery and Cafe', location: {lat: 33.961378, lng: -84.136208}},
         {title: 'JeJu Sauna', location: {lat: 33.9567, lng: -84.1313}},
@@ -221,7 +239,7 @@ function initMap() {
         {title: 'Boat Rock Outdoor Bouldering Area', location: {lat: 33.7219, lng: -84.5641}},
         {title: 'JINYA Ramen Bar', location: {lat: 33.919203, lng: -84.379007}},
         {title: 'Sharetea', location: {lat: 33.9184, lng: -84.3775}}
-    ];
+    ];*/
 
 
     //show markers and list after map initializes
@@ -370,6 +388,7 @@ function listView() {
         },
     ];
 
+
     // View Model
     function PeopleViewModel() {
         var self = this;
@@ -396,7 +415,7 @@ function listView() {
 
                 // The following group uses the location array to create an array of markers on initialize.
                 for (var i = 0; i < places.length; i++) {
-                    console.log(location[i]);
+                    //console.log(location[i]);
                     var __ret = createMultipleMarkers(self.places, i, map);
                 }
                 return self.places;
