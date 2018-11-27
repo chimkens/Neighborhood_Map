@@ -45,8 +45,9 @@ hr {
     border: none;
 }
 #map {
-    bottom:0px;
+    bottom:20px;
     height: 100%;
+    width: 100%;
     left: 362px;
     position: absolute;
     right: 0px;
@@ -88,6 +89,7 @@ hr {
     cursor: pointer;
     background: linear-gradient(to left, #00B7FF , aquamarine);
     color: white;
+    position: relative;
     overflow: auto;
 }
 
