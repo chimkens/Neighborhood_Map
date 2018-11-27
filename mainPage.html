@@ -25,7 +25,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    </head>
+</head>
 
 
 <body>
@@ -41,18 +41,24 @@
     });
 
 
-
 </script>
-<div class="container">
-    <h3>Where I Go Around Atlanta</h3>
+<div class="container container-fluid">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-sm-4">
 
-    <h4>Filter: <span><select data-bind="options: categories, value: selectedCategory"></select></span></h4>
+            <h3>Where I Go Around Atlanta</h3>
+
+            <h4>Filter: <span><select data-bind="options: categories, value: selectedCategory"></select></span></h4>
 
 
-    <ul id=list class="list-group no-bullets" data-bind="foreach: filteredPeople">
-        <li class="list-group" data-bind="text: name, click: selectPlace" id="item"></li>
-    </ul>
-    <div id="map"></div>
+            <ul id=list class="list-group no-bullets nav flex-column" data-bind="foreach: filteredPeople">
+                <li class="list-group" data-bind="text: name, click: selectPlace" id="item"></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8" id="map"></div>
 </div>
 
 
@@ -65,8 +71,8 @@
 
 <script type="text/javascript" src="./public/javascripts/mapClient.js"></script>
 
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDECAQGKo6_jJ-0keW6LpUYxTgcjZTkXkE&v=3&callback=initMap" onerror="MapErrorFunction()"></script>
-
-
+<script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDECAQGKo6_jJ-0keW6LpUYxTgcjZTkXkE&v=3&callback=initMap"
+        onerror="MapErrorFunction()"></script>
 </body>
 </html>

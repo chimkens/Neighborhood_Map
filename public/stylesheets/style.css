@@ -20,7 +20,7 @@ body {
     height: 100%;
     position: relative;
     color: #999999;
-    overflow: auto;
+    overflow-x: scroll;
 }
 h1 {
     color: #525454;
@@ -88,6 +88,7 @@ hr {
     cursor: pointer;
     background: linear-gradient(to left, #00B7FF , aquamarine);
     color: white;
+    overflow: auto;
 }
 
 .no-bullets {
